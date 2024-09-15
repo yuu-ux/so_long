@@ -1,19 +1,7 @@
-#include "./libmlx/mlx.h"
+#include "../libmlx/mlx.h"
+#include "../include/so_long.h"
 #include <stdlib.h>
 #include <string.h>
-
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
-typedef struct s_vars {
-    void *mlx;
-    void *win;
-}   t_vars;
 
 void    my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -35,6 +23,7 @@ int close(int keycode, t_vars *vars)
 
 int close_window(t_vars *vars)
 {
+    (void)vars;
     exit(0);
 }
 
@@ -43,7 +32,7 @@ int	main(void)
     t_vars vars;
     char *img;
     char *relative_path;
-    relative_path = strdup("./background.xpm");
+    relative_path = strdup("./image/11zon_floor.xpm");
     int img_width;
     int img_height;
 

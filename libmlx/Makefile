@@ -20,6 +20,8 @@ $(NOM): $(OBJ)
 
 clean:
 	rm -f $(NOM) $(OBJ) *~
+
+fclean: clean
 	rm -f $(NAME)
 
 re: clean all

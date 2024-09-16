@@ -6,13 +6,13 @@
 /*   By: yehara <yehara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:40:23 by yehara            #+#    #+#             */
-/*   Updated: 2024/05/08 21:02:50 by yehara           ###   ########.fr       */
+/*   Updated: 2024/09/16 19:36:56 by ebarayuug        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+int ft_strlen(const char *s)
 {
 	size_t	i;
 

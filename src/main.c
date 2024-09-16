@@ -53,7 +53,7 @@ void    get_map(t_map_info *map, char *file_path)
         if (!temp)
             break;
         map->height++;
-        map->width = ft_strlen(temp) - 1;
+        map->width = ft_strlen(ft_chomp(temp));
         free(temp);
     }
     close(fd);
@@ -63,10 +63,10 @@ void    get_map(t_map_info *map, char *file_path)
     // 長方形チェックとマップの読み取り
     while (1)
     {
-        map->data[i] = get_next_line(fd);
-        if (!map->data[i])
+        map->data[i] = ft_chomp(get_next_line(fd));
+        if (!(map->data[i]))
             break ;
-        if (map->width != ft_strlen(map->data[i]) - 1)
+        if (map->width != ft_strlen(map->data[i]))
             error_call(MAP_ERROR);
         i++;
     }
@@ -76,6 +76,7 @@ void    get_map(t_map_info *map, char *file_path)
         error_call(MAP_ERROR);
 }
 
+
 int	main(int argc, char **argv)
 {
 //    t_vars vars;
@@ -84,30 +85,31 @@ int	main(int argc, char **argv)
 //    relative_path = strdup("./map/map1.ber");
 //    int img_width;
 //    int img_height;
-    t_map_info map;
-    int i;
+    t_map_info map = { .player_count = 0, .end_count = 0, .item_count = 0};
 
     if (argc != 2)
         error_call(MAP_DOES_NOT_EXIST);
     else
     {
-
-        i = 0;
         get_map(&map, argv[1]);
+        check_error(&map);
+/////////////////////////////デバッグ用/////////////////////////////////
+        int i;
+        i = 0;
         while (map.data[i])
         {
-            printf("%zu %s", ft_strlen(map.data[i]), map.data[i]);
+            printf("%d %s\n", ft_strlen(map.data[i]), map.data[i]);
             i++;
         }
-        printf("\n");
-        printf("width:%zu height:%zu\n", map.width, map.height);
         i = 0;
         while (map.data[i])
         {
             free(map.data[i]);
             i++;
         }
+
         free(map.data);
+/////////////////////////////デバッグ用/////////////////////////////////
 //        vars.mlx = mlx_init();
 //        vars.win = mlx_new_window(vars.mlx, 1000, 650, "Hello world!");
 //        img = mlx_xpm_file_to_image(vars.mlx, relative_path, &img_width, &img_height);

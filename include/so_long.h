@@ -10,11 +10,11 @@
 // 構造体定義
 typedef struct s_map_info {
     char **data;
-    int start_count;
+    int player_count;
     int end_count;
     int item_count;
-    size_t width;
-    size_t height;
+    int width;
+    int height;
 } t_map_info;
 
 typedef struct	s_data {
@@ -36,3 +36,9 @@ typedef struct s_vars {
 #define MAP_ERROR 3
 
 char *get_next_line(int fd);
+void    check_wall(t_map_info *map, int i);
+void    check_duplicate(t_map_info *map);
+void    check_error(t_map_info *map);
+void    error_call(int error_num);
+void    get_map(t_map_info *map, char *file_path);
+char *ft_chomp (char *str);

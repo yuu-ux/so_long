@@ -47,3 +47,5 @@ int dfs(t_map_info* map, int** visited, int x, int y);
 void	check_wall(t_map_info *map, int i);
 void	check_duplicate(t_map_info *map);
 void	check_error(t_map_info *map);
+void    drawing_map(t_map_info *map, t_vars *vars);
+void    draw_wall(t_vars *vars, int x, int y);

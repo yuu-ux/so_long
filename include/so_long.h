@@ -42,3 +42,8 @@ void    check_error(t_map_info *map);
 void    error_call(int error_num);
 void    get_map(t_map_info *map, char *file_path);
 char *ft_chomp (char *str);
+int isValid(t_map_info* map, int** visited, int x, int y);
+int dfs(t_map_info* map, int** visited, int x, int y);
+void	check_wall(t_map_info *map, int i);
+void	check_duplicate(t_map_info *map);
+void	check_error(t_map_info *map);

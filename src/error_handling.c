@@ -1,4 +1,4 @@
-#include "../include/so_long.h"
+#include "so_long.h"
 
 int isValid(t_map_info* map, int** visited, int x, int y)
 {

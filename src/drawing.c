@@ -1,4 +1,4 @@
-#include "../include/so_long.h"
+#include "so_long.h"
 
 void    draw_wall(t_vars *vars, int x, int y)
 {

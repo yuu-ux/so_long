@@ -1,13 +1,13 @@
-#include "../include/so_long.h"
+#include "so_long.h"
 
-char *ft_chomp (char *str)
+char	*ft_chomp(char *str)
 {
-    int len;
+	int	len;
 
-    if (!str)
-        return (NULL);
-    len = ft_strlen(str);
-    if (len > 0 && str[len-1] == '\n')
-        str[len-1] = '\0';
-    return (str);
+	if (!str)
+		return (NULL);
+	len = ft_strlen(str);
+	if (len > 0 && str[len - 1] == '\n')
+		str[len - 1] = '\0';
+	return (str);
 }

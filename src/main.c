@@ -12,19 +12,11 @@ void    error_call(int error_num)
     exit(1);
 }
 
-void    my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-    char *dst;
-
-    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-    *(unsigned int*)dst = color;
-}
-
-int ft_close(int keycode, t_vars *vars)
+int ft_close(int keycode, t_map_info *map)
 {
     if (keycode == 53)
     {
-        mlx_destroy_window(vars->mlx, vars->win);
+        mlx_destroy_window(map->mlx, map->win);
         exit(0);
     }
     return (0);
@@ -32,7 +24,7 @@ int ft_close(int keycode, t_vars *vars)
 
 //int close_window(t_vars *vars)
 //{
-//    (void)vars;
+//    free(vars);
 //    exit(0);
 //}
 
@@ -80,7 +72,8 @@ void    get_map(t_map_info *map, char *file_path)
 int	main(int argc, char **argv)
 {
     t_map_info map = { .player_count = 0, .end_count = 0, .item_count = 0};
-    t_vars vars;
+    map.mlx = mlx_init();
+    map.win = mlx_new_window(map.mlx, 1000, 500, "title");
 
     if (argc != 2)
         error_call(MAP_DOES_NOT_EXIST);
@@ -88,7 +81,8 @@ int	main(int argc, char **argv)
     {
         get_map(&map, argv[1]);
         check_error(&map);
-        drawing_map(&map, &vars);
+        drawing_map(&map);
+        operation(&map);
 /////////////////////////////デバッグ用/////////////////////////////////
         int i;
         i = 0;
@@ -106,8 +100,8 @@ int	main(int argc, char **argv)
 
         free(map.data);
 /////////////////////////////デバッグ用/////////////////////////////////
-    mlx_hook(vars.win, 2, 1L<<0, ft_close, &vars);
-    //mlx_hook(vars.win, 17, 1L<<17, close_window, &vars);
-    mlx_loop(vars.mlx);
+    //mlx_hook(map.win, 2, 1L<<0, ft_close, &map);
+    //mlx_hook(map.win, 17, 1L<<17, close_window, &map);
+    mlx_loop(map.mlx);
     }
 }

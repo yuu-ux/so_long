@@ -15,20 +15,12 @@ typedef struct s_map_info {
     int item_count;
     int width;
     int height;
-} t_map_info;
-
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
-typedef struct s_vars {
     void *mlx;
     void *win;
-}   t_vars;
+    void *img;
+    int img_width;
+    int img_height;
+} t_map_info;
 
 // エラーハンドリング
 #define MAP_DOES_NOT_EXIST 1
@@ -47,5 +39,6 @@ int dfs(t_map_info* map, int** visited, int x, int y);
 void	check_wall(t_map_info *map, int i);
 void	check_duplicate(t_map_info *map);
 void	check_error(t_map_info *map);
-void    drawing_map(t_map_info *map, t_vars *vars);
-void    draw_wall(t_vars *vars, int x, int y);
+void    drawing_map(t_map_info *map);
+int    move_player(int keycode, t_map_info *map);
+void    operation(t_map_info *map);

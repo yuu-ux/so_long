@@ -4,7 +4,7 @@ CC = cc
 CFLAGS = -fsanitize=address -Wall -Wextra -Werror #
 LIBMLX = libmlx
 
-FILES = main.c error_handling.c utils.c drawing.c
+FILES = main.c error_handling.c utils.c drawing.c operate.c
 GET_NEXT_LINE_SOURCE = ./lib/get_next_line/get_next_line.c ./lib/get_next_line/get_next_line_utils.c
 PRINTF = ./lib/printf
 GET_NEXT_LINE = ./lib/get_next_line

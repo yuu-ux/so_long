@@ -9,6 +9,13 @@ void    update_map(t_map_info *map, int x, int y)
 
 int    close_window(t_map_info *map)
 {
+    int i;
+
+    i = 0;
+    while (map->data[i])
+    {
+        free(map->data[i]);
+    }
     free(map->data);
     exit(0);
 }
@@ -28,18 +35,18 @@ int    key_input_event(int keycode, void *map_)
     map = map_;
     x = map->player_x;
     y = map->player_y;
-    if (keycode == 53)
+    if (keycode == KEY_ESC)
     {
         mlx_destroy_window(map->mlx, map->win);
         exit(0);
     }
-    else if (keycode == 0)
+    else if (keycode == KEY_A)
         map->player_x -= 1;
-    else if (keycode == 2)
+    else if (keycode == KEY_D)
         map->player_x += 1;
-    else if (keycode == 1)
+    else if (keycode == KEY_S)
         map->player_y += 1;
-    else if (keycode == 13)
+    else if (keycode == KEY_W)
         map->player_y -= 1;
     if (check_move(map, map->data[map->player_y][map->player_x]))
         update_map(map, x, y);

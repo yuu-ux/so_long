@@ -46,7 +46,7 @@ void	check_wall(t_map_info *map, int i)
 		while (map->data[i][j])
 		{
 			if (map->data[i][j] != '1')
-				error_call(MAP_ERROR);
+				error_call(map, MAP_ERROR);
 			j++;
 		}
 	}
@@ -56,7 +56,7 @@ void	check_wall(t_map_info *map, int i)
 void	check_duplicate(t_map_info *map)
 {
 	if (map->player_count != 1 || map->end_count != 1 || map->item_count == 0)
-		error_call(MAP_ERROR);
+		error_call(map, MAP_ERROR);
 }
 
 void	check_error(t_map_info *map)
@@ -69,7 +69,7 @@ void	check_error(t_map_info *map)
 	{
 		j = 0;
 		if (map->data[i][j] != '1')
-			error_call(MAP_ERROR);
+			error_call(map, MAP_ERROR);
 		else
 		{
 			check_wall(map, i);
@@ -84,7 +84,7 @@ void	check_error(t_map_info *map)
 				else if (!(map->data[i][j + 1]))
 				{
 					if (map->data[i][j] != '1')
-						error_call(MAP_ERROR);
+						error_call(map, MAP_ERROR);
 				}
 				j++;
 			}
@@ -94,8 +94,13 @@ void	check_error(t_map_info *map)
 	check_duplicate(map);
 	int** visited = (int**)malloc(map->height * sizeof(int*));
     for (int i = 0; i < map->height; i++) {
-        visited[i] = (int*)calloc(map->width, sizeof(int));
+        visited[i] = (int*)ft_calloc(map->width, sizeof(int));
     }
 	if (!(dfs(map, visited, 1, 3)))
-        error_call(MAP_ERROR);
+        error_call(map, MAP_ERROR);
+	for (int i = 0; i < map->height; i++)
+	{
+		free(visited[i]);	
+	}
+	free(visited);
 }

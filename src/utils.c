@@ -12,6 +12,43 @@ char	*ft_chomp(char *str)
 	return (str);
 }
 
+void    map_init(t_map_info *map, char *file_path)
+{
+    int fd;
+    char *temp;
+    
+    fd = open(file_path, O_RDONLY);
+    if (fd == -1)
+        error_call(map, MAP_ERROR);
+    while (1)
+    {
+        temp = get_next_line(fd);
+        if (!temp)
+            break;
+        map->height++;
+        map->width = ft_strlen(ft_chomp(temp));
+        free(temp);
+    }
+    close(fd);
+    free(temp);
+}
+
+void    all_free(t_map_info *map)
+{
+    int i;
+
+    if (map->data)
+    {
+        i = 0;
+        while (map->data[i])
+            free(map->data[i++]);
+        free(map->data);
+    }
+
+    if (map->win || map->mlx)
+        mlx_destroy_window(map->mlx, map->win);
+}
+
 int    check_move(t_map_info *map, char next_elem)
 {
     int i;

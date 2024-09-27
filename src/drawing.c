@@ -23,7 +23,7 @@ void    drawing_map(t_map_info *map)
             else if (map->data[i][j] == 'E')
                 path = ft_strdup("./image/end.xpm");
             map->img = mlx_xpm_file_to_image(map->mlx, path, &map->img_width, &map->img_height);
-            mlx_put_image_to_window(map->mlx, map->win, map->img, j * map->img_height, i * map->img_width);
+            mlx_put_image_to_window(map->mlx, map->win, map->img, j * PIXEL, i * PIXEL);
             free(path);
             j++;
         }

@@ -20,12 +20,16 @@ typedef struct s_map_info {
     void *img;
     int img_width;
     int img_height;
+    int player_x;
+    int player_y;
+    int move_count;
 } t_map_info;
 
 // エラーハンドリング
 #define MAP_DOES_NOT_EXIST 1
 #define FUNCTION_ERROR 2
 #define MAP_ERROR 3
+#define PIXEL 50
 
 char *get_next_line(int fd);
 void    check_wall(t_map_info *map, int i);
@@ -40,5 +44,8 @@ void	check_wall(t_map_info *map, int i);
 void	check_duplicate(t_map_info *map);
 void	check_error(t_map_info *map);
 void    drawing_map(t_map_info *map);
-int    move_player(int keycode, t_map_info *map);
-void    operation(t_map_info *map);
+void    update_map(t_map_info *map, int x, int y);
+int    close_window(t_map_info *map);
+void    set_player(t_map_info *map, int x, int y);
+int    key_input_event(int keycode, void *map_);
+int    check_move(t_map_info *map, char next_elem);

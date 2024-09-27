@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME	= libftprintf.a
-CC	= cc
+CC	= clang
 FLAGS	= -Wall -Werror -Wextra
 LIBFT	= ./libft/libft.a
 SRCS	= ft_printf.c ft_printf_char.c ft_printf_dec.c ft_printf_hex.c ft_printf_ptr.c ft_printf_str.c ft_printf_unsigned_dec.c

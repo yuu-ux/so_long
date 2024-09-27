@@ -1,0 +1,3 @@
+[submodule "get_next_line"]
+    path = lib/get_next_line
+	url = https://github.com/yuu-ux/get_next_line.git

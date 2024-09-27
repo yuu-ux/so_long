@@ -1,6 +1,6 @@
 SO_LONG = so_long
 
-CC = cc
+CC = clang
 CFLAGS = -fsanitize=address -Wall -Wextra -Werror #
 LIBMLX = libmlx
 
@@ -14,16 +14,16 @@ all: $(SO_LONG)
 $(SO_LONG): $(SOURCE)
 	make -C $(LIBMLX)
 	make -C $(PRINTF)
-	$(CC) $(CFLAGS) -I include $^ $(GET_NEXT_LINE_SOURCE) -o $@ -Llibmlx -lmlx -framework OpenGL -framework AppKit -L./lib/printf -lftprintf
+	$(CC) $(CFLAGS) -I include $^ $(GET_NEXT_LINE_SOURCE) -o $@ libmlx/libmlx_Linux.a libmlx/libmlx.a -lm -lXext -lX11 -L./lib/printf -lftprintf
 
 clean:
-	make -C $(LIBMLX) clean
-	make -C $(PRINTF) clean
+	make clean -C $(LIBMLX) 
+	make clean -C $(PRINTF) 
 	rm -f *.o
 
 fclean: clean
-	make -C $(LIBMLX) fclean
-	make -C $(PRINTF) fclean
+	make clean -C $(LIBMLX)
+	make fclean -C $(PRINTF)
 	rm -f $(SO_LONG)
 
 re: fclean all

@@ -25,6 +25,27 @@ typedef struct s_map_info {
     int move_count;
 } t_map_info;
 
+typedef struct s_info
+{
+    char data;
+    int x;
+    int y;
+} t_info;
+
+typedef struct s_stack 
+{
+    t_info *data;
+    size_t len;
+    size_t size;
+} t_stack;
+
+//enum e_map {
+//    FLOOR;
+//   ITEM;
+//   WALL;
+//   PLYAER;
+//    END;
+//}
 // エラーハンドリング
 #define MAP_DOES_NOT_EXIST 1
 #define FUNCTION_ERROR 2
@@ -40,7 +61,7 @@ typedef struct s_map_info {
 void    all_free(t_map_info *map);
 void    error_call(t_map_info *map, int error_num);
 char *get_next_line(int fd);
-void    check_wall(t_map_info *map, int i);
+void    check_wall(t_map_info *map);
 void    check_duplicate(t_map_info *map);
 void    check_error(t_map_info *map);
 void    get_map(t_map_info *map, char *file_path);
@@ -48,7 +69,6 @@ void    map_init(t_map_info *map, char *file_path);
 char *ft_chomp (char *str);
 int isValid(t_map_info* map, int** visited, int x, int y);
 int dfs(t_map_info* map, int** visited, int x, int y);
-void	check_wall(t_map_info *map, int i);
 void	check_duplicate(t_map_info *map);
 void	check_error(t_map_info *map);
 void    drawing_map(t_map_info *map);

@@ -19,7 +19,7 @@ void    map_init(t_map_info *map, char *file_path)
     
     fd = open(file_path, O_RDONLY);
     if (fd == -1)
-        error_call(map, MAP_ERROR);
+        error_call(map, NULL, MAP_ERROR);
     while (1)
     {
         temp = get_next_line(fd);
@@ -45,9 +45,10 @@ void    all_free(t_map_info *map, int **visited)
         free(map->data);
     }
 
-    if (visited) {
+    if (visited)
+    {
         i = 0;
-        while (visited[i])
+        while (i < map->height)
             free(visited[i++]);
         free(visited);
     }

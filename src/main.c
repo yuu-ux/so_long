@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 04:48:10 by yehara            #+#    #+#             */
-/*   Updated: 2024/09/29 17:50:56 by yehara           ###   ########.fr       */
+/*   Updated: 2024/09/29 21:54:32 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	get_map(t_map_info *map, char *file_path)
 		if (!(map->data[i]))
 			break ;
 		if (map->width != ft_strlen(map->data[i]))
-			error_call(map, MAP_ERROR);
+			error_call(map, NULL, MAP_ERROR);
 		i++;
 	}
 	close(fd);
 	if (map->height == map->width)
-		error_call(map, MAP_ERROR);
+		error_call(map, NULL, MAP_ERROR);
 }
 
 int	main(int argc, char **argv)
@@ -54,7 +54,7 @@ int	main(int argc, char **argv)
 
 	ft_memset(&map, 0, sizeof(map));
 	if (argc != 2)
-		error_call(&map, MAP_DOES_NOT_EXIST);
+		error_call(&map, NULL, MAP_DOES_NOT_EXIST);
 	else
 	{
 		get_map(&map, argv[1]);

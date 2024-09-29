@@ -33,7 +33,7 @@ void    map_init(t_map_info *map, char *file_path)
     free(temp);
 }
 
-void    all_free(t_map_info *map)
+void    all_free(t_map_info *map, int **visited)
 {
     int i;
 
@@ -43,6 +43,13 @@ void    all_free(t_map_info *map)
         while (map->data[i])
             free(map->data[i++]);
         free(map->data);
+    }
+
+    if (visited) {
+        i = 0;
+        while (visited[i])
+            free(visited[i++]);
+        free(visited);
     }
 
     if (map->win || map->mlx)

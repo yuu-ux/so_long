@@ -37,7 +37,7 @@ int    key_input_event(int keycode, void *map_)
     y = map->player_y;
     if (keycode == KEY_ESC)
     {
-        all_free(map);
+        all_free(map, NULL);
         exit(0);
     }
     else if (keycode == KEY_A)

@@ -6,15 +6,15 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 04:48:10 by yehara            #+#    #+#             */
-/*   Updated: 2024/09/29 12:33:41 by yehara           ###   ########.fr       */
+/*   Updated: 2024/09/29 17:50:56 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	error_call(t_map_info *map, int error_num)
+void	error_call(t_map_info *map, int **visited, int error_num)
 {
-	all_free(map);
+	all_free(map, visited);
 	ft_printf("Error\n");
 	if (error_num == MAP_DOES_NOT_EXIST)
 		ft_printf("map does not exist\n");

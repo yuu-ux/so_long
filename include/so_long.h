@@ -58,7 +58,7 @@ typedef struct s_stack
 #define PIXEL 50
 
 // エラーハンドリング
-void    all_free(t_map_info *map);
+void    all_free(t_map_info *map, int **visited);
 void    error_call(t_map_info *map, int error_num);
 char *get_next_line(int fd);
 void    check_wall(t_map_info map);
@@ -68,7 +68,7 @@ void    get_map(t_map_info *map, char *file_path);
 void    map_init(t_map_info *map, char *file_path);
 char *ft_chomp (char *str);
 int isValid(t_map_info* map, int** visited, int x, int y);
-int dfs(t_map_info* map, int** visited, int x, int y);
+int    dfs(t_map_info *map, t_stack stack, int **visited, int directions[4][2]);
 void	check_duplicate(t_map_info *map);
 void	check_error(t_map_info *map);
 void    drawing_map(t_map_info *map);

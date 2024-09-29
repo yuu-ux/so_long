@@ -1,74 +1,113 @@
 #include "so_long.h"
 
-int isValid(t_map_info* map, int** visited, int x, int y)
+int isValid(t_map_info *map, int **visited, int x, int y)
 {
-    return (x >= 0 && x < map->width && y >= 0 && y < map->height &&
-            map->data[y][x] != '1' && !visited[y][x]);
+    if (x >= 0 && x < map->width && y >= 0 && y < map->height
+        && map->data[y][x] != '1' && !visited[y][x])
+	{
+		if (map->data[y][x] == 'C')
+			map->item_count--;
+		return 1;
+	}
+	return 0;
 }
 
-int is_goalable(t_map_info *map) {
-    int **visited;
-	t_stack	stack = {0};
-	t_info temp;
-	int i;
 
-    int directions[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-    visited = (int **)malloc(map->height * sizeof(int *));
-    for (int i = 0; i < map->height; i++) visited[i] = (int *)calloc(map->width, sizeof(int));
+void	init_directions(int directions[4][2])
+{
+	// 上に移動する
+	directions[0][0] = 0;  // x方向の変化なし
+	directions[0][1] = -1; // y方向に-1（上へ移動）
+	// 下に移動する
+	directions[1][0] = 0; // x方向の変化なし
+	directions[1][1] = 1; // y方向に+1（下へ移動）
+	// 左に移動する
+	directions[2][0] = -1; // x方向に-1（左へ移動）
+	directions[2][1] = 0;  // y方向の変化なし
+	// 右に移動する
+	directions[3][0] = 1; // x方向に+1（右へ移動）
+	directions[3][1] = 0; // y方向の変化なし
+}
 
-    temp.data = map->data[map->player_y][map->player_x];
-    temp.x = map->player_x; 
-    temp.y = map->player_y; 
-	push(&stack, temp);
+void	update_current_position(t_map_info map, t_info *current_pos, int x,
+		int y)
+{
+	current_pos->data = map.data[y][x];
+	current_pos->x = x;
+	current_pos->y = y;
+}
 
-    while (stack.len > 0) {
-		temp = pop(&stack);
-        if (map->data[temp.y][temp.x] == 'E')
+void	is_goalable(t_map_info *map)
+{
+	int		**visited;
+	t_stack	stack;
+	t_info	current_pos;
+	t_info  new_pos;
+	int		directions[4][2];
+	int		i;
+	int		item_count;
+	int		new_x;
+	int		new_y;
+
+	i = 0;
+	item_count = map->item_count;
+	ft_memset(&stack, 0, sizeof(t_stack));
+	init_directions(directions);
+	visited = (int **)malloc(map->height * sizeof(int *));
+	while (i < map->height)
+		visited[i++] = (int *)ft_calloc(map->width, sizeof(int));
+	update_current_position(*map, &current_pos, map->player_x, map->player_y);
+	push(&stack, current_pos);
+	while (stack.len > 0)
+	{
+		current_pos = pop(&stack);
+		if (current_pos.data == 'E')
 		{
 			if (!map->item_count)
-				return 1;
-			continue;
+			{
+				map->item_count = item_count;
+				return ;
+			}
+			continue ;
 		}
-        visited[temp.y][temp.x] = 1;
-      i = 0;  
-	  while (i < 4)
-	  {
-            int newX = temp.x + directions[i][0];
-			int newY = temp.y + directions[i][1];
-
-            if (isValid(map, visited, newX, newY)) {
-				temp.data = map->data[newY][newX];
-				temp.x = newX;
-				temp.y = newY;
-				push(&stack, temp);
-            }
-		i++;
-	  }
-    }
-    return 0;
+		visited[current_pos.y][current_pos.x] = 1;
+		i = 0;
+		while (i < 4)
+		{
+			new_x = current_pos.x + directions[i][0];
+			new_y = current_pos.y + directions[i][1];
+			if (isValid(map, visited, new_x, new_y))
+			{
+				update_current_position(*map, &new_pos, new_x, new_y);
+				push(&stack, new_pos);
+			}
+			i++;
+		}
+	}
+	error_call(map, MAP_ERROR);
 }
 
-void	check_wall(t_map_info *map)
+void	check_wall(t_map_info map)
 {
 	int	i;
 	int	j;
-	
-	i = 0;
-	j = 0;
-	while (map->data[i])
-	{
-		if (map->data[i][0] != 1 || map->data[i][map->width-1] != 1)
-			error_call(map, MAP_ERROR);
 
-		if (i == 0 || i == map->height-1)
+	i = 0;
+	while (map.data[i])
+	{
+		if (map.data[i][0] != '1' || map.data[i][map.width - 1] != '1')
+			error_call(&map, MAP_ERROR);
+		if (i == 0 || i == map.height - 1)
 		{
-			while (map->data[i][j])
+			j = 0;
+			while (map.data[i][j])
 			{
-				if (map->data[i][j] != 1)
-					error_call(map, MAP_ERROR);
+				if (map.data[i][j] != '1')
+					error_call(&map, MAP_ERROR);
 				j++;
 			}
 		}
+		i++;
 	}
 }
 
@@ -78,9 +117,9 @@ void	check_duplicate(t_map_info *map)
 	int	j;
 
 	i = 0;
-	j = 0;
 	while (map->data[i])
 	{
+		j = 0;
 		while (map->data[i][j])
 		{
 			if (map->data[i][j] == 'C')
@@ -103,7 +142,8 @@ void	check_duplicate(t_map_info *map)
 
 void	check_error(t_map_info *map)
 {
-	check_wall(map);
+	check_wall(*map);
 	check_duplicate(map);
+	printf("test\n");
 	is_goalable(map);
 }

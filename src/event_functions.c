@@ -37,7 +37,7 @@ int    key_input_event(int keycode, void *map_)
     y = map->player_y;
     if (keycode == KEY_ESC)
     {
-        mlx_destroy_window(map->mlx, map->win);
+        all_free(map);
         exit(0);
     }
     else if (keycode == KEY_A)

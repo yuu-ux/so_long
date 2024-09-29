@@ -61,7 +61,7 @@ typedef struct s_stack
 void    all_free(t_map_info *map);
 void    error_call(t_map_info *map, int error_num);
 char *get_next_line(int fd);
-void    check_wall(t_map_info *map);
+void    check_wall(t_map_info map);
 void    check_duplicate(t_map_info *map);
 void    check_error(t_map_info *map);
 void    get_map(t_map_info *map, char *file_path);
@@ -78,3 +78,5 @@ void    set_player(t_map_info *map, int x, int y);
 int    key_input_event(int keycode, void *map_);
 int    check_move(t_map_info *map, char next_elem);
 void    map_init(t_map_info *map, char *file_path);
+t_info	pop(t_stack *stack);
+int	push(t_stack *stack, t_info c);

@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 04:48:10 by yehara            #+#    #+#             */
-/*   Updated: 2024/09/28 04:48:14 by yehara           ###   ########.fr       */
+/*   Updated: 2024/09/29 12:33:41 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ int	main(int argc, char **argv)
 		map.mlx = mlx_init();
 		map.win = mlx_new_window(map.mlx, map.width * PIXEL, map.height * PIXEL,
 				"Game");
-		map.player_x = 1;
-		map.player_y = 3;
 		check_error(&map);
 		drawing_map(&map);
 		mlx_hook(map.win, 2, 1L << 0, key_input_event, &map);

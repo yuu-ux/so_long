@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:08:24 by yehara            #+#    #+#             */
-/*   Updated: 2024/09/30 21:15:28 by yehara           ###   ########.fr       */
+/*   Updated: 2024/09/30 21:29:53 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,12 @@ void	all_free(t_map_info *map, int **visited)
 			free(visited[i++]);
 		free(visited);
 	}
-	if (map->mlx)
+	if (map->win)
 		mlx_destroy_window(map->mlx, map->win);
 	if (map->img)
 		mlx_destroy_image(map->mlx, map->img);
+	if (map->mlx)
+		free(map->mlx);
 }
 
 int	is_valid(t_map_info *map, int **visited, int x, int y)

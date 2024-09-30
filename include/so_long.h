@@ -64,19 +64,19 @@ void		get_map(t_map_info *map, char *file_path);
 
 // error_handling.c
 void		check_error(t_map_info *map);
-int			dfs(t_map_info *map, t_stack stack, int **visited);
+int			dfs(t_map_info *map, t_stack *stack, int **visited);
 void		is_goalable(t_map_info *map);
 void		check_wall(t_map_info map);
 void		check_duplicate(t_map_info *map);
 
 // error_handling_utils.c
-int			isValid(t_map_info *map, int **visited, int x, int y);
+int			is_valid(t_map_info *map, int **visited, int x, int y);
 void		init_directions(int directions[4][2]);
 void		update_current_position(t_map_info map, t_info *current_pos, int x,
 				int y);
-void	explore_map(t_map_info *map, t_stack stack, t_info current_pos,
+void	explore_map(t_map_info *map, t_stack *stack, t_info current_pos,
 		int **visited);
-int	check_current_data(t_map_info *map, t_info current_pos, int item_count);
+void		all_free(t_map_info *map, int **visited);
 
 // drawing.c
 void		drawing_map(t_map_info *map);
@@ -84,7 +84,6 @@ void		drawing_map(t_map_info *map);
 // utilis.c
 char		*ft_chomp(char *str);
 void		map_init(t_map_info *map, char *file_path);
-void		all_free(t_map_info *map, int **visited);
 int			check_move(t_map_info *map, char next_elem);
 t_info		pop(t_stack *stack);
 int			push(t_stack *stack, t_info c);

@@ -6,27 +6,32 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 22:45:39 by yehara            #+#    #+#             */
-/*   Updated: 2024/09/29 22:46:00 by yehara           ###   ########.fr       */
+/*   Updated: 2024/09/30 19:27:47 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	dfs(t_map_info *map, t_stack stack, int **visited)
+int	dfs(t_map_info *map, t_stack *stack, int **visited)
 {
 	t_info	current_pos;
 	int		item_count;
 
 	item_count = map->item_count;
 	update_current_position(*map, &current_pos, map->player_x, map->player_y);
-	push(&stack, current_pos);
-	while (stack.len > 0)
+	push(stack, current_pos);
+	while (stack->len > 0)
 	{
-		current_pos = pop(&stack);
-		if (check_current_data(map, current_pos, item_count))
+		current_pos = pop(stack);
+		if (current_pos.data == 'E')
+		{
+			if (!map->item_count)
+			{
+				map->item_count = item_count;
+				return (0);
+			}
 			continue ;
-		else
-			return (0);
+		}
 		visited[current_pos.y][current_pos.x] = 1;
 		explore_map(map, stack, current_pos, visited);
 	}
@@ -36,16 +41,29 @@ int	dfs(t_map_info *map, t_stack stack, int **visited)
 void	is_goalable(t_map_info *map)
 {
 	int		**visited;
-	t_stack	stack;
+	t_stack	*stack;
 	int		i;
 
 	i = 0;
-	ft_memset(&stack, 0, sizeof(t_stack));
+	stack = (t_stack *)malloc(sizeof(t_stack));
+	ft_memset(stack, 0, sizeof(t_stack));
 	visited = (int **)malloc(map->height * sizeof(int *));
 	while (i < map->height)
 		visited[i++] = (int *)ft_calloc(map->width, sizeof(int));
 	if (dfs(map, stack, visited))
+	{
+		free(stack);
 		error_call(map, visited, MAP_ERROR);
+	}
+	else
+	{
+		free(stack->data);
+		free(stack);
+		i = 0;
+		while (i < map->height)
+			free(visited[i++]);
+		free(visited);
+	}
 }
 
 void	check_wall(t_map_info map)

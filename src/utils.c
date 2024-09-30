@@ -33,30 +33,6 @@ void    map_init(t_map_info *map, char *file_path)
     free(temp);
 }
 
-void    all_free(t_map_info *map, int **visited)
-{
-    int i;
-
-    if (map->data)
-    {
-        i = 0;
-        while (map->data[i])
-            free(map->data[i++]);
-        free(map->data);
-    }
-
-    if (visited)
-    {
-        i = 0;
-        while (i < map->height)
-            free(visited[i++]);
-        free(visited);
-    }
-
-    if (map->win || map->mlx)
-        mlx_destroy_window(map->mlx, map->win);
-}
-
 int    check_move(t_map_info *map, char next_elem)
 {
     int i;

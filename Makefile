@@ -1,7 +1,7 @@
 SO_LONG = so_long
 
 CC = clang
-CFLAGS = -fsanitize=address -Wall -Wextra -Werror #
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 LIBMLX = libmlx
 
 FILES = main.c error_handling.c utils.c drawing.c event_functions.c error_handling_utils.c

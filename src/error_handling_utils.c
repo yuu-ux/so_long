@@ -1,9 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_handling_utils.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/30 19:08:24 by yehara            #+#    #+#             */
+/*   Updated: 2024/09/30 20:16:01 by yehara           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-int	isValid(t_map_info *map, int **visited, int x, int y)
+void	all_free(t_map_info *map, int **visited)
 {
-	if (x >= -1 && x < map->width && y >= 0 && y < map->height
-		&& map->data[y][x] != '0' && !visited[y][x])
+	int	i;
+
+	if (map->data)
+	{
+		i = 0;
+		while (map->data[i])
+			free(map->data[i++]);
+		free(map->data);
+	}
+	if (visited)
+	{
+		i = 0;
+		while (i < map->height)
+			free(visited[i++]);
+		free(visited);
+	}
+	if (map->win || map->mlx)
+		mlx_destroy_window(map->mlx, map->win);
+}
+
+int	is_valid(t_map_info *map, int **visited, int x, int y)
+{
+	if (x >= 0 && x < map->width && y >= 0 && y < map->height
+		&& map->data[y][x] != '1' && !visited[y][x])
 	{
 		if (map->data[y][x] == 'C')
 			map->item_count--;
@@ -32,20 +66,7 @@ void	update_current_position(t_map_info map, t_info *current_pos, int x,
 	current_pos->y = y;
 }
 
-int	check_current_data(t_map_info *map, t_info current_pos, int item_count)
-{
-	if (current_pos.data == 'E')
-	{
-		if (!map->item_count)
-		{
-			map->item_count = item_count;
-			return (0);
-		}
-	}
-	return (1);
-}
-
-void	explore_map(t_map_info *map, t_stack stack, t_info current_pos,
+void	explore_map(t_map_info *map, t_stack *stack, t_info current_pos,
 		int **visited)
 {
 	int		i;
@@ -60,10 +81,10 @@ void	explore_map(t_map_info *map, t_stack stack, t_info current_pos,
 	{
 		new_x = current_pos.x + directions[i][0];
 		new_y = current_pos.y + directions[i][1];
-		if (isValid(map, visited, new_x, new_y))
+		if (is_valid(map, visited, new_x, new_y))
 		{
 			update_current_position(*map, &new_pos, new_x, new_y);
-			push(&stack, new_pos);
+			push(stack, new_pos);
 		}
 		i++;
 	}

@@ -79,12 +79,12 @@ void	explore_map(t_map_info *map, t_stack *stack, t_info current_pos,
 void		all_free(t_map_info *map, int **visited);
 
 // drawing.c
-void		drawing_map(t_map_info *map);
+void	render_map(t_map_info *map);
+void	drawing_map(t_map_info *map, char *path, int x, int y);
 
 // utilis.c
 char		*ft_chomp(char *str);
 void		map_init(t_map_info *map, char *file_path);
-int			check_move(t_map_info *map, char next_elem);
 t_info		pop(t_stack *stack);
 int			push(t_stack *stack, t_info c);
 
@@ -93,6 +93,7 @@ int			key_input_event(int keycode, void *map_);
 void		set_player(t_map_info *map, int x, int y);
 int			close_window(t_map_info *map);
 void		update_map(t_map_info *map, int x, int y);
+int			check_move(t_map_info *map, char next_elem);
 
 // get_next_line.c
 char		*get_next_line(int fd);

@@ -1,56 +1,96 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   event_functions.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/30 21:13:35 by yehara            #+#    #+#             */
+/*   Updated: 2024/09/30 21:13:41 by yehara           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-void    update_map(t_map_info *map, int x, int y)
+int	check_move(t_map_info *map, char next_elem)
 {
-    map->data[y][x] = '0';
-    map->data[map->player_y][map->player_x] = 'P';
-    drawing_map(map);
+	int	i;
+
+	i = 0;
+	if (next_elem == 'E')
+	{
+		if (map->item_count)
+			return (0);
+		else
+		{
+			ft_printf("ゴール!\n");
+			all_free(map, NULL);
+			exit(0);
+		}
+	}
+	if (next_elem != '1')
+	{
+		if (next_elem == 'C')
+			map->item_count--;
+		return (1);
+	}
+	return (0);
 }
 
-int    close_window(t_map_info *map)
+void	update_map(t_map_info *map, int last_x, int last_y)
 {
-    int i;
-
-    i = 0;
-    while (map->data[i])
-    {
-        free(map->data[i]);
-    }
-    free(map->data);
-    exit(0);
+	if (last_x == map->player_x && last_y == map->player_y)
+		return ;
+	else
+	{
+		map->data[last_y][last_x] = '0';
+		map->data[map->player_y][map->player_x] = 'P';
+		map->move_count++;
+		ft_printf("move_count -> %d\n", map->move_count);
+		render_map(map);
+	}
 }
 
-void    set_player(t_map_info *map, int x, int y)
+int	close_window(t_map_info *map)
 {
-    map->player_x = x;
-    map->player_y = y;
+	int	i;
+
+	i = 0;
+	all_free(map, NULL);
+	exit(0);
 }
 
-int    key_input_event(int keycode, void *map_)
+void	set_player(t_map_info *map, int x, int y)
 {
-    int x;
-    int y;
-    t_map_info *map;
+	map->player_x = x;
+	map->player_y = y;
+}
 
-    map = map_;
-    x = map->player_x;
-    y = map->player_y;
-    if (keycode == KEY_ESC)
-    {
-        all_free(map, NULL);
-        exit(0);
-    }
-    else if (keycode == KEY_A)
-        map->player_x -= 1;
-    else if (keycode == KEY_D)
-        map->player_x += 1;
-    else if (keycode == KEY_S)
-        map->player_y += 1;
-    else if (keycode == KEY_W)
-        map->player_y -= 1;
-    if (check_move(map, map->data[map->player_y][map->player_x]))
-        update_map(map, x, y);
-    else
-        set_player(map, x, y);
-    return (0);
+int	key_input_event(int keycode, void *map_)
+{
+	int			x;
+	int			y;
+	t_map_info	*map;
+
+	map = map_;
+	x = map->player_x;
+	y = map->player_y;
+	if (keycode == KEY_ESC)
+	{
+		all_free(map, NULL);
+		exit(0);
+	}
+	else if (keycode == KEY_A)
+		map->player_x -= 1;
+	else if (keycode == KEY_D)
+		map->player_x += 1;
+	else if (keycode == KEY_S)
+		map->player_y += 1;
+	else if (keycode == KEY_W)
+		map->player_y -= 1;
+	if (check_move(map, map->data[map->player_y][map->player_x]))
+		update_map(map, x, y);
+	else
+		set_player(map, x, y);
+	return (0);
 }

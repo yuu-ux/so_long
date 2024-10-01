@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:04:18 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/01 19:35:30 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/01 20:18:32 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,5 @@ void		set_player(t_map_info *map, int x, int y);
 int			close_window(t_map_info *map);
 void		update_map(t_map_info *map, int x, int y);
 int			check_move(t_map_info *map, char next_elem);
-char		*get_next_line(int fd);
 
 #endif

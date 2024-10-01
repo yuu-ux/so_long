@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 22:45:39 by yehara            #+#    #+#             */
-/*   Updated: 2024/09/30 19:27:47 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/01 18:26:47 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,25 @@ void	is_goalable(t_map_info *map)
 
 	i = 0;
 	stack = (t_stack *)malloc(sizeof(t_stack));
+	if (!stack)
+		error_call(map, NULL, FUNCTION_ERROR);
 	ft_memset(stack, 0, sizeof(t_stack));
 	visited = (int **)malloc(map->height * sizeof(int *));
+	if (!visited)
+		error_call(map, NULL, FUNCTION_ERROR);
 	while (i < map->height)
 		visited[i++] = (int *)ft_calloc(map->width, sizeof(int));
 	if (dfs(map, stack, visited))
-	{
-		free(stack);
 		error_call(map, visited, MAP_ERROR);
-	}
 	else
 	{
-		free(stack->data);
-		free(stack);
 		i = 0;
 		while (i < map->height)
 			free(visited[i++]);
 		free(visited);
 	}
+	free(stack->data);
+	free(stack);
 }
 
 void	check_wall(t_map_info map)

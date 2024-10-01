@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   drawing.c                                          :+:      :+:    :+:   */
+/*   render_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 20:39:22 by yehara            #+#    #+#             */
-/*   Updated: 2024/09/30 20:39:24 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/01 19:20:57 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,5 @@ void	drawing_map(t_map_info *map, char *path, int x, int y)
 	map->img = mlx_xpm_file_to_image(map->mlx, path, &map->img_width,
 			&map->img_height);
 	mlx_put_image_to_window(map->mlx, map->win, map->img, y * PIXEL, x * PIXEL);
+	mlx_destroy_image(map->mlx, map->img);
 }

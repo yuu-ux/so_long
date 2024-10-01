@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 04:48:10 by yehara            #+#    #+#             */
-/*   Updated: 2024/09/30 20:37:05 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/01 19:42:42 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,16 @@ int	main(int argc, char **argv)
 {
 	t_map_info	map;
 
-	ft_memset(&map, 0, sizeof(map));
 	if (argc != 2)
-		error_call(&map, NULL, MAP_DOES_NOT_EXIST);
+		error_call(NULL, NULL, MAP_DOES_NOT_EXIST);
 	else
 	{
+		ft_memset(&map, 0, sizeof(t_map_info));
 		get_map(&map, argv[1]);
+		check_error(&map);
 		map.mlx = mlx_init();
 		map.win = mlx_new_window(map.mlx, map.width * PIXEL, map.height * PIXEL,
 				"Game");
-		check_error(&map);
 		render_map(&map);
 		mlx_hook(map.win, 2, 1L << 0, key_input_event, &map);
 		mlx_hook(map.win, 17, 1L << 17, close_window, &map);

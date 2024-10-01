@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yehara <yehara@student.42tokyo.jp>         +#+  +:+       +#+         #
+#    By: yehara <yehara@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/12 16:35:15 by yehara            #+#    #+#              #
-#    Updated: 2024/09/15 21:47:45 by ebarayuug        ###   ########.fr        #
+#    Updated: 2024/10/01 20:11:03 by yehara           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= libftprintf.a
-CC	= clang
+CC	= cc
 FLAGS	= -Wall -Werror -Wextra
 LIBFT	= ./libft/libft.a
 SRCS	= ft_printf.c ft_printf_char.c ft_printf_dec.c ft_printf_hex.c ft_printf_ptr.c ft_printf_str.c ft_printf_unsigned_dec.c

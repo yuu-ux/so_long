@@ -1,6 +1,6 @@
 SO_LONG = so_long
 
-CC = clang
+CC = cc
 CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 LIBMLX = libmlx
 

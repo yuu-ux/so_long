@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:08:24 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/06 22:55:13 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/06 23:31:51 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ void	check_invalid_value(t_map_info *map, t_stack *stack, int **visited,
 
 int	is_valid(t_map_info *map, int **visited, size_t x, size_t y)
 {
-	if (x >= 0 && x < map->width && y >= 0 && y < map->height
-		&& map->data[y][x] != '1' && !visited[y][x])
+	if (map->data[y][x] != '1' && !visited[y][x])
 	{
-		if (map->data[y][x] == 'C')
+		if (map->data[y][x] == 'C' && map->item_count > 0)
 			map->item_count--;
 		return (1);
 	}

@@ -6,20 +6,15 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:04:18 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/01 20:18:32 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/06 16:28:19 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "../lib/get_next_line/get_next_line.h"
-# include "../lib/printf/ft_printf.h"
+# include "../lib/libft/libft.h"
 # include "../libmlx/mlx.h"
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
 
 typedef struct s_map_info
 {
@@ -27,8 +22,8 @@ typedef struct s_map_info
 	int		player_count;
 	int		end_count;
 	int		item_count;
-	int		width;
-	int		height;
+	size_t	width;
+	size_t	height;
 	void	*mlx;
 	void	*win;
 	void	*img;
@@ -70,7 +65,7 @@ int			dfs(t_map_info *map, t_stack *stack, int **visited);
 void		is_goalable(t_map_info *map);
 void		check_wall(t_map_info map);
 void		check_duplicate(t_map_info *map);
-int			is_valid(t_map_info *map, int **visited, int x, int y);
+int			is_valid(t_map_info *map, int **visited, size_t x, size_t y);
 void		init_directions(int directions[4][2]);
 void		update_current_position(t_map_info map, t_info *current_pos, int x,
 				int y);

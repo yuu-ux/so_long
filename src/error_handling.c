@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 22:45:39 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/01 18:26:47 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/06 16:28:44 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	is_goalable(t_map_info *map)
 {
 	int		**visited;
 	t_stack	*stack;
-	int		i;
+	size_t		i;
 
 	i = 0;
 	stack = (t_stack *)malloc(sizeof(t_stack));
@@ -69,8 +69,8 @@ void	is_goalable(t_map_info *map)
 
 void	check_wall(t_map_info map)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	while (map.data[i])

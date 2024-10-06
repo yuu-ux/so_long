@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:08:24 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/01 19:28:37 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/06 16:29:17 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	all_free(t_map_info *map, int **visited)
 {
-	int	i;
+	size_t	i;
 
 	if (map)
 	{
@@ -39,7 +39,7 @@ void	all_free(t_map_info *map, int **visited)
 	}
 }
 
-int	is_valid(t_map_info *map, int **visited, int x, int y)
+int	is_valid(t_map_info *map, int **visited, size_t x, size_t y)
 {
 	if (x >= 0 && x < map->width && y >= 0 && y < map->height
 		&& map->data[y][x] != '1' && !visited[y][x])

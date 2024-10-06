@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 21:13:35 by yehara            #+#    #+#             */
-/*   Updated: 2024/09/30 21:13:41 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/06 20:44:41 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	check_move(t_map_info *map, char next_elem)
 		else
 		{
 			ft_printf("ゴール!\n");
-			all_free(map, NULL);
+			all_free(map, NULL, NULL, map->height);
 			exit(0);
 		}
 	}
@@ -56,7 +56,7 @@ int	close_window(t_map_info *map)
 	int	i;
 
 	i = 0;
-	all_free(map, NULL);
+	all_free(map, NULL, NULL, map->height);
 	exit(0);
 }
 
@@ -77,7 +77,7 @@ int	key_input_event(int keycode, void *map_)
 	y = map->player_y;
 	if (keycode == KEY_ESC)
 	{
-		all_free(map, NULL);
+		all_free(map, NULL, NULL, map->height);
 		exit(0);
 	}
 	else if (keycode == KEY_A)

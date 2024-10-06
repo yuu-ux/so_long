@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 21:37:46 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/01 18:34:03 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/06 18:29:39 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	map_init(t_map_info *map, char *file_path)
 
 	fd = open(file_path, O_RDONLY);
 	if (fd == -1)
-		error_call(map, NULL, MAP_ERROR);
+		error_call(map, NULL, NULL, MAP_ERROR);
 	while (1)
 	{
 		temp = get_next_line(fd);

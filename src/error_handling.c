@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 22:45:39 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/06 16:28:44 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/06 20:17:26 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,22 @@ void	is_goalable(t_map_info *map)
 {
 	int		**visited;
 	t_stack	*stack;
-	size_t		i;
+	size_t	i;
 
 	i = 0;
 	stack = (t_stack *)malloc(sizeof(t_stack));
 	if (!stack)
-		error_call(map, NULL, FUNCTION_ERROR);
+		error_call(map, NULL, NULL, FUNCTION_ERROR);
 	ft_memset(stack, 0, sizeof(t_stack));
 	visited = (int **)malloc(map->height * sizeof(int *));
 	if (!visited)
-		error_call(map, NULL, FUNCTION_ERROR);
+		error_call(map, NULL, NULL, FUNCTION_ERROR);
 	while (i < map->height)
 		visited[i++] = (int *)ft_calloc(map->width, sizeof(int));
 	if (dfs(map, stack, visited))
-		error_call(map, visited, MAP_ERROR);
+		error_call(map, visited, stack, MAP_ERROR);
 	else
-	{
-		i = 0;
-		while (i < map->height)
-			free(visited[i++]);
-		free(visited);
-	}
-	free(stack->data);
-	free(stack);
+		all_free(NULL, visited, stack, map->height);
 }
 
 void	check_wall(t_map_info map)
@@ -76,14 +69,14 @@ void	check_wall(t_map_info map)
 	while (map.data[i])
 	{
 		if (map.data[i][0] != '1' || map.data[i][map.width - 1] != '1')
-			error_call(&map, NULL, MAP_ERROR);
+			error_call(&map, NULL, NULL, MAP_ERROR);
 		if (i == 0 || i == map.height - 1)
 		{
 			j = 0;
 			while (map.data[i][j])
 			{
 				if (map.data[i][j] != '1')
-					error_call(&map, NULL, MAP_ERROR);
+					error_call(&map, NULL, NULL, MAP_ERROR);
 				j++;
 			}
 		}
@@ -117,7 +110,7 @@ void	check_duplicate(t_map_info *map)
 		i++;
 	}
 	if (map->player_count != 1 || map->end_count != 1 || map->item_count == 0)
-		error_call(map, NULL, MAP_ERROR);
+		error_call(map, NULL, NULL, MAP_ERROR);
 }
 
 void	check_error(t_map_info *map)

@@ -6,38 +6,11 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:08:24 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/06 16:29:17 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/06 19:46:04 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	all_free(t_map_info *map, int **visited)
-{
-	size_t	i;
-
-	if (map)
-	{
-		i = 0;
-		while (map->data[i])
-			free(map->data[i++]);
-		free(map->data);
-	}
-	if (visited)
-	{
-		i = 0;
-		while (i < map->height)
-			free(visited[i++]);
-		free(visited);
-	}
-	if (map->win)
-		mlx_destroy_window(map->mlx, map->win);
-	if (map->mlx)
-	{
-		mlx_destroy_display(map->mlx);
-		free(map->mlx);
-	}
-}
 
 int	is_valid(t_map_info *map, int **visited, size_t x, size_t y)
 {

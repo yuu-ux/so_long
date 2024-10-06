@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 20:39:22 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/06 16:26:40 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/06 18:14:44 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	render_map(t_map_info *map)
 {
-	size_t		y;
-	size_t		x;
+	size_t	y;
+	size_t	x;
 	char	*path;
 
 	y = 0;

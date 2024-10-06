@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:04:18 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/06 16:28:19 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/06 20:40:48 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ typedef struct s_stack
 # define KEY_ESC 65307
 # define PIXEL 50
 
-void		error_call(t_map_info *map, int **visited, int error_num);
+void		error_call(t_map_info *map, int **visited, t_stack *stack,
+				int error_num);
 void		get_map(t_map_info *map, char *file_path);
 void		check_error(t_map_info *map);
 int			dfs(t_map_info *map, t_stack *stack, int **visited);
@@ -71,7 +72,8 @@ void		update_current_position(t_map_info map, t_info *current_pos, int x,
 				int y);
 void		explore_map(t_map_info *map, t_stack *stack, t_info current_pos,
 				int **visited);
-void		all_free(t_map_info *map, int **visited);
+void		all_free(t_map_info *map, int **visited, t_stack *stack,
+				size_t size);
 void		render_map(t_map_info *map);
 void		drawing_map(t_map_info *map, char *path, int x, int y);
 char		*ft_chomp(char *str);

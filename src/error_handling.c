@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 22:45:39 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/06 20:17:26 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/06 22:33:05 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,18 @@ int	dfs(t_map_info *map, t_stack *stack, int **visited)
 {
 	t_info	current_pos;
 	int		item_count;
+	int		end_flag;
 
+	end_flag = 1;
 	item_count = map->item_count;
 	update_current_position(*map, &current_pos, map->player_x, map->player_y);
-	push(stack, current_pos);
+	if (push(stack, current_pos) == -1)
+		error_call(map, visited, stack, FUNCTION_ERROR);
 	while (stack->len > 0)
 	{
 		current_pos = pop(stack);
+		if (current_pos.data != 'C' && current_pos.data != '0' && current_pos.data != 'E' && current_pos.data != 'P')
+			error_call(map, visited, stack, MAP_ERROR);
 		if (current_pos.data == 'E')
 		{
 			if (!map->item_count)
@@ -30,9 +35,18 @@ int	dfs(t_map_info *map, t_stack *stack, int **visited)
 				map->item_count = item_count;
 				return (0);
 			}
-			continue ;
+			if (stack->len != 0)
+				continue ;
 		}
+		//if (current_pos.x == map->end_x && current_pos.y == map->end_y && end_flag)
+		//{
+		//	visited[current_pos.y][current_pos.x] = 0;
+		//	push(stack, current_pos);
+		//	end_flag = 0;
+		//}
+		//else
 		visited[current_pos.y][current_pos.x] = 1;
+		visited[map->end_y][map->end_x] = 0;
 		explore_map(map, stack, current_pos, visited);
 	}
 	return (1);
@@ -100,11 +114,10 @@ void	check_duplicate(t_map_info *map)
 			else if (map->data[i][j] == 'P')
 			{
 				map->player_count++;
-				map->player_x = j;
-				map->player_y = i;
+				set_player(map, j, i);
 			}
 			else if (map->data[i][j] == 'E')
-				map->end_count++;
+				set_and_count_end(map, j, i);
 			j++;
 		}
 		i++;

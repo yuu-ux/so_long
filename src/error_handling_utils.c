@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:08:24 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/06 19:46:04 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/06 22:06:50 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	explore_map(t_map_info *map, t_stack *stack, t_info current_pos,
 		if (is_valid(map, visited, new_x, new_y))
 		{
 			update_current_position(*map, &new_pos, new_x, new_y);
-			push(stack, new_pos);
+			if (push(stack, new_pos) == -1)
+				error_call(map, visited, stack, FUNCTION_ERROR);
 		}
 		i++;
 	}

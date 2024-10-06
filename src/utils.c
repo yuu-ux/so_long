@@ -6,11 +6,18 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 21:37:46 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/06 18:29:39 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/06 22:23:56 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	set_and_count_end(t_map_info *map, int x, int y)
+{
+	map->end_count++;
+	map->end_x = x;
+	map->end_y = y;
+}
 
 char	*ft_chomp(char *str)
 {
@@ -68,7 +75,10 @@ int	push(t_stack *stack, t_info c)
 			size = 2;
 		new_data = malloc(size * sizeof(t_info));
 		if (!new_data)
+		{
+			free(new_data);
 			return (-1);
+		}
 		ft_memcpy(new_data, stack->data, sizeof(t_info) * stack->len);
 		free(stack->data);
 		stack->data = new_data;

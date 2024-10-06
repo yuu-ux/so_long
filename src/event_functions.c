@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 21:13:35 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/06 20:44:41 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/06 22:26:34 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,10 @@
 
 int	check_move(t_map_info *map, char next_elem)
 {
-	int	i;
-
-	i = 0;
 	if (next_elem == 'E')
 	{
 		if (map->item_count)
-			return (0);
+			return (1);
 		else
 		{
 			ft_printf("ゴール!\n");
@@ -44,6 +41,8 @@ void	update_map(t_map_info *map, int last_x, int last_y)
 	else
 	{
 		map->data[last_y][last_x] = '0';
+		if (last_x == map->end_x && last_y == map->end_y)
+			map->data[last_y][last_x] = 'E';
 		map->data[map->player_y][map->player_x] = 'P';
 		map->move_count++;
 		ft_printf("move_count -> %d\n", map->move_count);
@@ -53,9 +52,6 @@ void	update_map(t_map_info *map, int last_x, int last_y)
 
 int	close_window(t_map_info *map)
 {
-	int	i;
-
-	i = 0;
 	all_free(map, NULL, NULL, map->height);
 	exit(0);
 }

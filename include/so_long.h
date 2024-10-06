@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:04:18 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/06 20:40:48 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/06 22:23:48 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_map_info
 	int		img_height;
 	int		player_x;
 	int		player_y;
+	int		end_x;
+	int		end_y;
 	int		move_count;
 }			t_map_info;
 
@@ -85,5 +87,6 @@ void		set_player(t_map_info *map, int x, int y);
 int			close_window(t_map_info *map);
 void		update_map(t_map_info *map, int x, int y);
 int			check_move(t_map_info *map, char next_elem);
+void		set_and_count_end(t_map_info *map, int x, int y);
 
 #endif

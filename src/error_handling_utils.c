@@ -6,11 +6,19 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:08:24 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/06 22:06:50 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/06 22:55:13 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	check_invalid_value(t_map_info *map, t_stack *stack, int **visited,
+		t_info current_pos)
+{
+	if (current_pos.data != 'C' && current_pos.data != '0'
+		&& current_pos.data != 'E' && current_pos.data != 'P')
+		error_call(map, visited, stack, MAP_ERROR);
+}
 
 int	is_valid(t_map_info *map, int **visited, size_t x, size_t y)
 {

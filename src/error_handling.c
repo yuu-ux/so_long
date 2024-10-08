@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 22:45:39 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/08 18:03:54 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/08 20:45:10 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	dfs(t_map_info *map, t_stack *stack, int **visited)
 	while (stack->len > 0)
 	{
 		current_pos = pop(stack);
-		check_invalid_value(map, stack, visited, current_pos);
 		if (current_pos.data == 'E')
 		{
 			if (!map->item_count)
@@ -99,6 +98,7 @@ void	check_duplicate(t_map_info *map)
 		j = 0;
 		while (map->data[i][j])
 		{
+			check_invalid_value(map, j, i);
 			if (map->data[i][j] == 'C')
 				map->item_count++;
 			else if (map->data[i][j] == 'P')

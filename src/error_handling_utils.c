@@ -6,18 +6,18 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:08:24 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/06 23:31:51 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/08 20:45:44 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	check_invalid_value(t_map_info *map, t_stack *stack, int **visited,
-		t_info current_pos)
+void	check_invalid_value(t_map_info *map, int j, int i)
 {
-	if (current_pos.data != 'C' && current_pos.data != '0'
-		&& current_pos.data != 'E' && current_pos.data != 'P')
-		error_call(map, visited, stack, MAP_ERROR);
+	if (map->data[i][j] != 'C' && map->data[i][j] != '0'
+		&& map->data[i][j] != 'E' && map->data[i][j] != 'P'
+		&& map->data[i][j] != '1' && map->data[i][j])
+		error_call(map, NULL, NULL, MAP_ERROR);
 }
 
 int	is_valid(t_map_info *map, int **visited, size_t x, size_t y)

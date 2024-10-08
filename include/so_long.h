@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:04:18 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/06 22:55:03 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/08 20:46:33 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int			close_window(t_map_info *map);
 void		update_map(t_map_info *map, int x, int y);
 int			check_move(t_map_info *map, char next_elem);
 void		set_and_count_end(t_map_info *map, int x, int y);
-void		check_invalid_value(t_map_info *map, t_stack *stack, int **visited,
-				t_info current_pos);
+void		check_invalid_value(t_map_info *map, int j, int i);
 
 #endif

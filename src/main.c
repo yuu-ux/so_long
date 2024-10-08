@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 20:41:30 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/06 21:01:48 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/08 18:27:06 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ void	get_map(t_map_info *map, char *file_path)
 		i++;
 	}
 	close(fd);
-	if (map->height == map->width)
-		error_call(map, NULL, NULL, MAP_ERROR);
 }
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: yehara <yehara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 22:45:39 by yehara            #+#    #+#             */
-/*   Updated: 2024/10/06 23:29:44 by yehara           ###   ########.fr       */
+/*   Updated: 2024/10/08 18:03:54 by yehara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,7 @@ int	dfs(t_map_info *map, t_stack *stack, int **visited)
 				return (0);
 		}
 		if (current_pos.x == map->end_x && current_pos.y == map->end_y)
-		{
 			visited[current_pos.y][current_pos.x] = 0;
-			if (push(stack, current_pos) == -1)
-				error_call(map, visited, stack, FUNCTION_ERROR);
-		}
 		else
 			visited[current_pos.y][current_pos.x] = 1;
 		explore_map(map, stack, current_pos, visited);

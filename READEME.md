@@ -6,7 +6,7 @@ Mac OS で Ubuntu環境 で動作するアプリケーションを動かす
 し、「Authenticate connections」のチェックを外す
 3. ユーザー名を取得して Dockerfile の UID を書き換える
 ```id -u```
-4. local からX11 ウィンドウに接続できるようにする
+4. ホストのウィンドウに接続できるようにする
 ```xhost +local:```
 5. Linux ブランチのソースをクローンする
 ```git clone -b linux https://github.com/yuu-ux/so_long.git```
